@@ -1,0 +1,8 @@
+%form{:action => "/upload", :method => "post",:enctype=>"multipart/form-data"}
+  %legend
+    Upload csv file
+  %p
+    %label{:for => ""} CSV File
+    %input{:type => "file", :name => "csv", :id => "csv"}
+  %p
+    %input{:type => "submit", :value => "Submit"}
