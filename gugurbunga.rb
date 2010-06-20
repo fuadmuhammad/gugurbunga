@@ -2,19 +2,32 @@ require 'rubygems'
 require 'sinatra'
 require 'csv'
 require 'haml'
+require "active_record"
+
+ActiveRecord::Base.establish_connection(
+ :adapter => "mysql",  
+ :host => "localhost",  
+ :database => "test1"  
+)
+
+class Bunga < ActiveRecord::Base
+end
 
 get '/' do
   haml :index
 end
 
 post '/upload' do
-  puts "test"
-  @testing = "testing"
-  CSV::Reader.parse(params[:csv]) do |line|
-    puts line
-    if !line[1].nil? && line[1].slice(0,5) == 'Bunga'	
-      puts line[3]
-      @bunga = line[3]
+  CSV::Reader.parse(params[:csv][:tempfile]) do |line|
+    if !line[1].nil? && line[1].slice(0,5) == 'Bunga'
+      puts Date.strptime(line[0], "%d/%m/%Y")
+      bunga = Bunga.find(:first,:conditions=> ["date like :month_year",{:month_year=>month_year}])
+      if bunga.nil?
+        puts "Data bunga untuk bulan "+Date.strptime(line[0],"%m %Y")+" Sudah ada"
+      else	
+        bunga = line[3].gsub(".","").gsub(",",".")
+        Bunga.create(:username=>"fuad",:date=>Date.strptime(line[0], "%d/%m/%Y"),:bunga=>bunga)
+      end
     end
   end
   haml :upload
