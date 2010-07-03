@@ -20,13 +20,14 @@ end
 post '/upload' do
   CSV::Reader.parse(params[:csv][:tempfile]) do |line|
     if !line[1].nil? && line[1].slice(0,5) == 'Bunga'
-      puts Date.strptime(line[0], "%d/%m/%Y")
-      bunga = Bunga.find(:first,:conditions=> ["date like :month_year",{:month_year=>month_year}])
-      if bunga.nil?
-        puts "Data bunga untuk bulan "+Date.strptime(line[0],"%m %Y")+" Sudah ada"
+      month_year = Date.strptime(line[0], "%d/%m/%Y")
+      bunga = Bunga.find(:first,:conditions=> ["date like :month_year",{:month_year=>"%"+month_year.to_s+"%"}])
+      unless bunga.nil?
+        @message =  "Data bunga untuk bulan "+line[0]+"sudah ada"
       else	
         bunga = line[3].gsub(".","").gsub(",",".")
         Bunga.create(:username=>"fuad",:date=>Date.strptime(line[0], "%d/%m/%Y"),:bunga=>bunga)
+	@message = "Data berhasil ditambah"
       end
     end
   end
