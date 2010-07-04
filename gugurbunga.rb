@@ -10,6 +10,10 @@ require "active_record"
 # :database => "test1"  
 #)
 
+dbconfig = YAML.load(File.read('config/database.yml'))
+ActiveRecord::Base.establish_connection dbconfig['production']
+
+
 class Bunga < ActiveRecord::Base
 end
 
