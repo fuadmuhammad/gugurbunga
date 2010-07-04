@@ -1,9 +1,9 @@
 development:
-  encoding: unicode
+  encoding: utf8
   adapter: mysql
   username: root	
   root: 3306
   host: localhost
-  database: test1
+  database: gugurbunga
   password: 
 
