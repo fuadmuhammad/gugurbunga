@@ -4,11 +4,11 @@ require 'csv'
 require 'haml'
 require "active_record"
 
-ActiveRecord::Base.establish_connection(
- :adapter => "mysql",  
- :host => "localhost",  
- :database => "test1"  
-)
+#ActiveRecord::Base.establish_connection(
+# :adapter => "mysql",  
+# :host => "localhost",  
+# :database => "test1"  
+#)
 
 class Bunga < ActiveRecord::Base
 end

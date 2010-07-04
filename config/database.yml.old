@@ -1,0 +1,18 @@
+#production: 
+#  encoding: unicode
+#  adapter: postgresql
+#  username: htcpwlsbev
+#  port: 5432
+#  host: ec2-184-73-168-241.compute-1.amazonaws.com
+#  database: htcpwlsbev
+#  password: f5lxx1zz5pnorynqglhzmsp34
+
+production:
+  encoding: unioce
+  adapter: mysql
+  username: root	
+  root: 3306
+  host: localhost
+  database: test1
+  password: None
+

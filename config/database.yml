@@ -1,0 +1,9 @@
+development:
+  encoding: unicode
+  adapter: mysql
+  username: root	
+  root: 3306
+  host: localhost
+  database: test1
+  password: 
+
