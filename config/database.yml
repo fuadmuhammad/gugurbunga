@@ -1,4 +1,4 @@
-development:
+production:
   encoding: utf8
   adapter: mysql
   username: root	
