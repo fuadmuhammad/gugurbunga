@@ -1,8 +1,21 @@
-%form{:action => "/upload", :method => "post",:enctype=>"multipart/form-data"}
-  %legend
-    Upload csv file
-  %p
-    %label{:for => ""} CSV File
-    %input{:type => "file", :name => "csv", :id => "csv"}
-  %p
-    %input{:type => "submit", :value => "Submit"}
+#{@message}&nbsp;&nbsp;&nbsp;&nbsp;<a href="/upload">Upload</a>
+%h1  Daftar Bunga
+%table
+  %tr
+    %th Tanggal
+    %th Bunga
+    %th Action
+  - total_bunga = 0
+  - @bungas.each do |bunga|
+    %tr
+      %td= bunga.date
+      %td= bunga.bunga
+      %td
+        %a{:href => "/delete/#{bunga.id}", :onclick=>"return confirm('Are You Sure?')"} delete
+    - total_bunga+=bunga.bunga
+  %tr
+    %td 
+      %strong Total
+    %td= total_bunga
+     
+  

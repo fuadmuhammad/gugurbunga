@@ -18,8 +18,20 @@ class Bunga < ActiveRecord::Base
 end
 
 get '/' do
+  @bungas = Bunga.find :all,:order=> 'date DESC'
   haml :index
 end
+
+get '/delete/:id' do
+  bunga = Bunga.find params[:id]
+  bunga.delete
+  redirect '/'
+end
+
+get '/upload' do
+  haml :upload
+end
+
 
 post '/upload' do
   CSV::Reader.parse(params[:csv][:tempfile]) do |line|
@@ -28,7 +40,7 @@ post '/upload' do
       month_year = line[0]
       bunga = Bunga.find(:first,:conditions=> ["date = :month_year",{:month_year=>month_year}])
       unless bunga.nil?
-        @message =  "Data bunga untuk bulan "+line[0]+"sudah ada"
+        @message =  "Data bunga untuk bulan "+line[0]+" sudah ada"
       else	
         bunga = line[3].gsub(".","").gsub(",",".")
         Bunga.create(:username=>"fuad",:date=>line[0],:bunga=>bunga)
@@ -36,7 +48,7 @@ post '/upload' do
       end
     end
   end
-  haml :upload
+  redirect '/'
 end
 
 get '/hello_world' do
